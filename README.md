@@ -104,7 +104,7 @@ Based on the exploratory analysis conducted, several insights emerge regarding t
 3.	**Optimal Publishing Days:** Analysis of total video views by published day reveals that Thursday, Friday, and Sunday are optimal days for video uploads, attracting higher viewership. This insight provides valuable guidance for content scheduling and audience engagement strategies.
 4.	**Publishing Patterns:** The heatmap highlights optimal publishing times across different days, with Thursday and Friday afternoons, along with Sunday mornings, garnering the highest views. This detailed understanding of publishing patterns enables strategic content planning and audience outreach.
 5.	**Video Duration Trends:** The violin plot underscores a predominant trend where most videos across all members fall within the 0-300 seconds duration range. Notably, SUGA's content stands out with a significant number of shorter videos, suggesting a unique stylistic approach or content preference specific to his production strategy. <br>
-<br>
+
 Overall, these findings offer valuable insights into BTS's YouTube channel dynamics, highlighting member contributions, audience engagement patterns, and strategic considerations for content creation and distribution. 
 
 # Reference
