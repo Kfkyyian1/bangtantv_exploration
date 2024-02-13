@@ -1,3 +1,4 @@
+![bts](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/3b97556d-88ab-42a0-b923-8c0b16752061)
 # Overview & Background
 This project delves into the official YouTube channel of BTS called [BANGTANTV](https://www.youtube.com/@BTS), a globally acclaimed K-pop group sensation with a vast international fanbase. Despite primarily featuring songs in Korean and English, BTS has garnered immense popularity worldwide. Each member of the group brings a distinct talent and persona, contributing uniquely to the group's success. The project seeks to analyze the channel dynamics and performance of  videos, shedding light on the viewership as well as engagement patterns associated with each member. 
 
@@ -103,4 +104,6 @@ Based on the exploratory analysis conducted, several insights emerge regarding t
 Overall, these findings offer valuable insights into BTS's YouTube channel dynamics, highlighting member contributions, audience engagement patterns, and strategic considerations for content creation and distribution. 
 
 # Reference
-Youtube API for Python: How to Create a Unique Data Portfolio Project, The Vu data analytics. https://www.youtube.com/watch?v=D56_Cx36oGY
+- Thu Vu data analytics. (2022, January 22). YouTube API for Python: How to create a unique Data Portfolio Project [Video]. YouTube. https://www.youtube.com/watch?v=D56_Cx36oGY
+- BTS (방탄소년단) (2023, June 9). [Image] Facebook. https://www.facebook.com/photo/?fbid=858730148944371&set=a.282831103200948
+
