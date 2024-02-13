@@ -102,3 +102,5 @@ Based on the exploratory analysis conducted, several insights emerge regarding t
 <br>
 Overall, these findings offer valuable insights into BTS's YouTube channel dynamics, highlighting member contributions, audience engagement patterns, and strategic considerations for content creation and distribution. 
 
+# Reference
+Youtube API for Python: How to Create a Unique Data Portfolio Project, The Vu data analytics. https://www.youtube.com/watch?v=D56_Cx36oGY
