@@ -55,7 +55,7 @@ These steps ensured the dataset's readiness for visualization and analysis, stre
 ## Bar Plot: Total Video Views and Likes By BTS Member
 ![1-Total Video Views and Likes by BTS Member](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/475cdf58-c3bd-42e4-b7c4-2b028247eb67)
 ![1-Summary Data-Screenshot 2024-02-13 at 2 00 04 PM](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/36fdb83e-447e-4c23-b6d9-ae77c51c576f) <br>
-Based on the summary dataframe above (arranged by total views in descending order), we can observe that:
+Based on the barplot and summary dataframe above (arranged by total views in descending order), we can observe that:
 1.	Jungkook (JK) emerges as the highest contributor, boasting the highest count of uploaded videos, along with commanding the top position in both total views and likes. This indicates not only a consistent output of content but also a significant and engaged audience.
 2.	V stands out prominently as the second-highest contributor in terms of total views, likes, and comments. Remarkably, V achieves this with a comparatively lower count of uploaded videos, underscoring the exceptional engagement and impact of each video.
 3.	Jimin secures the third position across all major metrics—total views, likes, and comments. This consistency suggests a substantial and engaged viewership, contributing to the overall success of the channel.
@@ -91,3 +91,14 @@ This heatmap of publishing patterns was created to understand the optimal timing
 ![5-Video Duration Distribution by Member](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/aac76cb0-c8c3-42d7-9875-b29d98da28dc)
 
 The plot shows a predominant trend where the majority of videos across all members fall within the 0-300 seconds duration range. Interestingly, a closer examination indicates that SUGA stands out with a considerable number of videos, particularly concentrated below the 150 seconds mark, distinguishing his content from other members. This observation suggests a potential stylistic or content preference specific to SUGA's video production strategy.
+
+# Conclusion
+Based on the exploratory analysis conducted, several insights emerge regarding the performance and audience engagement of BTS's YouTube channel:
+1.	**Member Contribution Analysis:** Jungkook (JK) emerges as the highest contributor, leading in both total views and likes, showcasing a consistent content output and engaged audience. V stands out with significant impact despite fewer uploaded videos, highlighting exceptional engagement. 
+2.	**Content Duration and Engagement:** The scatter plot illustrates a concentration of views between 200 to 500 seconds, indicating a preference for longer content such as music videos and behind-the-scenes footage. This aligns with audience expectations for engaging and immersive content experiences.
+3.	**Optimal Publishing Days:** Analysis of total video views by published day reveals that Thursday, Friday, and Sunday are optimal days for video uploads, attracting higher viewership. This insight provides valuable guidance for content scheduling and audience engagement strategies.
+4.	**Publishing Patterns:** The heatmap highlights optimal publishing times across different days, with Thursday and Friday afternoons, along with Sunday mornings, garnering the highest views. This detailed understanding of publishing patterns enables strategic content planning and audience outreach.
+5.	**Video Duration Trends:** The violin plot underscores a predominant trend where most videos across all members fall within the 0-300 seconds duration range. Notably, SUGA's content stands out with a significant number of shorter videos, suggesting a unique stylistic approach or content preference specific to his production strategy. <br>
+<br>
+Overall, these findings offer valuable insights into BTS's YouTube channel dynamics, highlighting member contributions, audience engagement patterns, and strategic considerations for content creation and distribution. 
+
