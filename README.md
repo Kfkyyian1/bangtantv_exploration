@@ -5,7 +5,7 @@ This project delves into the official YouTube channel of BTS called [BANGTANTV](
 _As a fan of Jungkook, I found his latest album "Golden" particularly intriguing, as it showcased a departure from his usual persona, unveiling a more nuanced musical style. It is fascinating to explore whether other ARMYs (BTS’s Fanbase) share similar biases and how they reflect in viewership trends._
 
 # Summary of Key Findings
-**1.	**Member Performance Analysis:****
+**1. Member Performance Analysis:** <br>
 - Jungkook emerges as the top contributor with the highest count of uploaded videos, views, and likes.
 - V stands out with significant engagement despite a lower count of uploaded videos.
 - Jimin secures the third position across major metrics, reflecting consistent viewer engagement.
@@ -15,10 +15,10 @@ _As a fan of Jungkook, I found his latest album "Golden" particularly intriguing
 **2.	Video Duration and Views:** <br>
 Most views fall within the 200 to 500-second mark, indicating sustained engagement with longer content such as music videos and behind-the-scenes footage.
 
-**3. Published Day Impact:**<br>
+**3. Published Day Impact:** <br>
 Thursday, Friday, and Sunday emerge as optimal days for video uploads, garnering higher viewership.
   
-**4. Publishing Patterns Heatmap:**<br>
+**4. Publishing Patterns Heatmap:** <br>
 The heatmap reveals peak viewing times, with Thursday and Friday afternoons, along with Sunday mornings, attracting the highest views.
 
 **5. Violin Plot Analysis:**
@@ -34,10 +34,14 @@ With the video IDs in hand, detailed information was collected about each video.
 
 # Data Preparation
 With the raw dataset, a few data cleaning steps were conducted. Download the code from _"bts_youtube_api_external.py"_ file.
-1.	Handling Null Values: The dataset underwent a null value check, revealing an empty 'favouriteCount' column.
-2.	Data Type Correction: To ensure consistency and facilitate numerical operations, columns such as 'viewCount', 'likeCount', 'favouriteCount', and 'commentCount' were converted from their original format to numeric.
-3.	Publish Day Extraction: A new column, 'publishDayName', was introduced to denote the day of the week when each video was published. This involved converting the 'publishedAt' column to datetime objects, allowing for the extraction of the corresponding day of the week.
-4.	Duration Standardization: Video durations, initially represented in a string format (e.g., PT2M25S), were standardized to seconds. This transformation was achieved using the isodate module, resulting in the creation of a new column named 'durationSecs' to express video durations uniformly.
+
+**1.  Handling Null Values:** <br> The dataset underwent a null value check, revealing an empty 'favouriteCount' column. <br>
+
+**2.  Data Type Correction:** <br> To ensure consistency and facilitate numerical operations, columns such as 'viewCount', 'likeCount', 'favouriteCount', and 'commentCount' were converted from their original format to numeric. <br>
+
+**3.	Publish Day Extraction:** <br> A new column, 'publishDayName', was introduced to denote the day of the week when each video was published. This involved converting the 'publishedAt' column to datetime objects, allowing for the extraction of the corresponding day of the week. <br>
+
+**4.	Duration Standardization:** <br> Video durations, initially represented in a string format (e.g., PT2M25S), were standardized to seconds. This transformation was achieved using the isodate module, resulting in the creation of a new column named 'durationSecs' to express video durations uniformly. <br>
 Upon completion of these data preprocessing steps, the refined dataset was exported to a CSV format, ensuring compatibility with R for subsequent visualization and analysis tasks. 
 
 # Data Cleaning & Video Categorization in R
