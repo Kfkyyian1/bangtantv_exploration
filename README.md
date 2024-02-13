@@ -106,7 +106,9 @@ Based on the exploratory analysis conducted, several insights emerge regarding t
 4.	**Optimal Publishing Time:** The heatmap highlights optimal publishing times across different days, with Thursday and Friday afternoons, along with Sunday mornings, garnering the highest views. This detailed understanding of publishing patterns enables strategic content planning and audience outreach.
 5.	**Video Duration Trends:** The violin plot underscores a predominant trend where most videos across all members fall within the 0-300 seconds duration range. Notably, SUGA's content stands out with a significant number of shorter videos, suggesting a unique stylistic approach or content preference specific to his production strategy. <br>
 
-Overall, these findings offer valuable insights into BTS's YouTube channel dynamics, highlighting member contributions, audience engagement patterns, and strategic considerations for content creation and distribution. 
+Overall, these findings offer valuable insights into BTS's YouTube channel dynamics, highlighting member contributions, audience engagement patterns, content creation and posting patterns. 
+
+_After conducting this analysis, it became evident that the affinity towards Jungkook's videos extends beyond personal bias; it appears to resonate strongly with many ARMYs, reflecting a shared preference for his content among fans. This data aligns with his unique position as the only member with an all-English full album, which likely contributes to his resonance with a global audience._
 
 # Reference
 - Thu Vu data analytics. (2022, January 22). YouTube API for Python: How to create a unique Data Portfolio Project [Video]. YouTube. https://www.youtube.com/watch?v=D56_Cx36oGY
