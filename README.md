@@ -40,7 +40,7 @@ With the raw dataset, a few data cleaning steps were conducted. Download the cod
 Upon completion of these data preprocessing steps, the refined dataset was exported to a CSV format, ensuring compatibility with R for subsequent visualization and analysis tasks. 
 
 # Data Cleaning & Video Categorization in R
-After importing the data into R, a few additional data sanity check and cleaning steps were taken before visualising the data. 
+After importing the data into R, a few additional data sanity check and cleaning steps were taken before visualising the data. Download the code from _"bts_youtube_external.Rmd"_ file.
 1.	Column Removal: The 'favouriteCount' column, containing only NA values, and the 'definition' column were removed from the dataset as they were deemed non-essential for the analysis. <br>
 ![image](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/603fe19d-f0b8-43b3-bf7f-82e96721cc7a)
 
