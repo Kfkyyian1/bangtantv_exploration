@@ -1,0 +1,288 @@
+---
+title: "BANGTANTV YouTube Channel Analysis"
+author: "Kristene"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: word_document
+font_adjustment: -2
+fig_width: 10 
+fig_height: 8 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+***********************************
+
+## Importing Data From Python in VSCode
+```{r include=FALSE}
+install.packages("reticulate")
+library(reticulate)
+py_run_file("/Users/kf/Documents/Personal/Python/youtube_api/bts_youtube_api.py") #replace this with your own file path
+# Read the CSV file into R
+video_data <- read.csv('video_df.csv') #import in csv file that was saved in python data extraction
+
+# Print the first few rows of the dataset
+head(video_data)
+
+# Check current directory
+getwd()
+# setwd("/Users/kf/Documents/Personal/Python/youtube_api") if you need to set your file directory
+```
+
+## Data Sanity Check & Preparation
+
+```{r include=FALSE}
+
+#install packages, setting location and importing in the food aid dataset
+install.packages('tidyverse')
+install.packages('dplyr')
+library(tidyverse)
+library(dplyr)
+
+#Drop unnecessary column like favouriteCount as all is NA and definition
+video_data <- video_data %>%
+  select(-c(favouriteCount, definition))
+
+#Add in a column to categorize each video based on member names.
+#Create a member category lookup table so it's more sustainable to change up next time
+member_lookup <- data.frame(
+  member_name = c("RAP MONSTER", "랩몬", "RM", "랩몬스터","rm","Rm", "김남준",
+                  "JIN", "jin", "진", "Jin", "김석진",
+                  "JUNGKOOK", "Jungkook", "jungkook", "정국", "Jung Kook","JungKook", "전정국",
+                  "JIMIN", "jimin","Jimin","지민",
+                  "SUGA", "슈가", "Suga","윤기",
+                  "J-HOPE", "j-hope", "jhope", "제이홉", "j hope", "J HOPE", "호석",
+                  "V","뷔", "김태형", "태형"),
+  category = c("RM", "RM", "RM","RM","RM", "RM","RM",
+               "Jin", "Jin", "Jin", "Jin", "Jin", 
+               "JK", "JK", "JK", "JK", "JK", "JK","JK",
+               "Jimin", "Jimin", "Jimin", "Jimin",
+               "SUGA", "SUGA", "SUGA", "SUGA",
+               "J-Hope", "J-Hope", "J-Hope", "J-Hope", "J-Hope", "J-Hope", "J-Hope",
+               "V", "V", "V", "V"),
+  stringsAsFactors = FALSE
+)
+
+# Extract the member names from the 'title' column
+# "Group" = if multiple member names appear
+# "Other"= if none of the member names appear
+# If there's exactly one unique member category, we assign that to the 'member' column.
+# The grepl function is used for pattern matching, and we use word boundaries (\\b) to ensure exact word matches.
+video_data <- video_data %>%
+  mutate(member = sapply(video_data$title, function(video_title) {
+    matches <- sapply(member_lookup$member_name, function(name) grepl(paste0("\\b", name, "\\b"), video_title, ignore.case = TRUE))
+    unique_members <- unique(member_lookup$category[matches])
+    if (length(unique_members) == 1) {
+      return(unique_members)
+    } else if (length(unique_members) > 1) {
+      return("Group")
+    } else {
+      return("Other")
+    }
+  }))
+
+# Display the updated 'video_data' dataset
+head(video_data)
+
+#Exporting clean dataset if needed
+write.csv(video_data, file="video_data_final.csv")
+```
+***********************************
+## Exploratory Analysis
+
+1. Bar Plot: Total Video Views and Likes By BTS Member
+
+```{r}
+# Filter out 'Other' and 'Group' categories
+filtered_video_data <- video_data %>%
+  filter(member %in% c("RM", "Jin", "JK", "Jimin", "SUGA", "J-Hope", "V"))
+
+# Calculate total videos per member
+total_videos <- filtered_video_data %>%
+  group_by(member) %>%
+  summarize(totalVideos = n())
+
+# Calculate total views per member
+total_views <- filtered_video_data %>%
+  group_by(member) %>%
+  summarize(totalViews = sum(viewCount)) %>%
+  distinct()  # Ensure unique entries for each member
+
+# Calculate total likes per member
+total_likes <- filtered_video_data %>%
+  group_by(member) %>%
+  summarize(totalLikes = sum(likeCount)) %>%
+  distinct()  # Ensure unique entries for each member
+
+# Merge total videos, views, and likes back into the filtered_video_data
+filtered_video_data <- merge(filtered_video_data, total_videos, by = "member")
+filtered_video_data <- merge(filtered_video_data, total_views, by = "member")
+filtered_video_data <- merge(filtered_video_data, total_likes, by = "member")
+
+# Order members by total views
+ordered_view_members <- filtered_video_data %>%
+  group_by(member) %>%
+  summarize(totalViews = sum(viewCount)) %>%
+  arrange(desc(totalViews)) %>%
+  pull(member)
+
+# Create a grouped bar chart
+grouped_plot <- ggplot(data = filtered_video_data) +
+  geom_bar(aes(x = factor(member,levels = ordered_view_members), y = viewCount, fill = "Views"), stat = "identity", alpha = 0.9) +
+  geom_bar(aes(x = factor(member), y = likeCount, fill = "Likes"), stat = "identity") +
+  labs(x = "Member",
+       y = "Count",
+       title = "Total Video Views and Likes by BTS Member",
+       subtitle = "Despite having the second-lowest number of uploaded videos, V has the second-highest total views and likes.",
+        caption = "Source: BANGTANTV YouTube Channel") +
+  scale_y_continuous(labels = scales::comma_format(scale = 1e-6, suffix = "M")) +
+  scale_fill_manual(name = "Count", values = c("Views" = "purple", "Likes" = "black")) +
+  geom_text(data = distinct(total_videos),  # Use distinct to avoid duplicate entries
+            aes(x = member, y = totalVideos, label = sprintf("%d Videos", totalVideos)),
+            vjust = 1.2, size = 3, hjust = 0.5, color = "black") +
+  theme_classic()
+
+# Display the grouped bar chart
+print(grouped_plot)
+
+# Show summary numbers of total views, likes and comments garnered by each member
+summary_data <- filtered_video_data %>%
+  group_by(member) %>%
+  summarize(totalVideos = n(),
+            totalViews = sum(viewCount),
+            totalLikes = sum(likeCount),
+            totalComments = sum(commentCount))%>%
+  arrange(desc(totalViews))
+
+print(summary_data)
+```
+Based on the summary dataframe above (arranged by total views in descending order), we can observe that:
+1. Jungkook (JK) emerges as the most prolific contributor, boasting the highest count of uploaded videos, along with commanding the top position in both total views and likes. This indicates not only a consistent output of content but also a significant and engaged audience.
+2. V stands out prominently as the second-highest contributor in terms of total views, likes, and comments. Remarkably, V achieves this with a comparatively lower count of uploaded videos, underscoring the exceptional engagement and impact of each video.
+3. Jimin secures the third position across all major metrics—total views, likes, and comments. This consistency suggests a substantial and engaged viewership, contributing to the overall success of the channel.
+4. Jin, while maintaining a competitive position in terms of total views and likes, particularly excels in fostering audience interaction as evidenced by the highest count of comments among all members. This reflects a strong community engagement around Jin's content, emphasizing the qualitative aspect of audience participation.
+5. SUGA has a substantial number of videos and total views, indicating a significant presence on the platform.
+6. RM, despite having fewer videos compared to some other members, has a respectable total views count, showcasing a strong impact with each video.
+7. J-Hope maintains a consistent performance across total views, likes, and comments, contributing significantly to the overall engagement.
+
+These observations highlight the diverse contributions of each member, with some excelling in specific metrics, while others demonstrate a balance across multiple aspects of audience interaction.
+
+
+2. Scatter Plot: Video Duration vs Video Views
+```{r}
+scatter_plot_1 <- ggplot(video_data, aes(x = durationSecs, y = viewCount)) +
+  geom_point(alpha = 0.8, color = "purple") +
+  labs(x = "Duration (seconds)",
+       y = "Views",
+       title = "Video Duration vs Video Views",
+       caption = "Source: BANGTANTV YouTube Channel") +
+  scale_y_continuous(labels = scales::comma_format(scale = 1e-6, suffix = "M"))+
+  scale_x_log10()+
+  theme_minimal()
+
+# Display the scatter plot
+print(scatter_plot_1)
+```
+Based on the scatter plot above, most views are within the 200-500 seconds (3.3 minutes - 8.3 minutes). It makes sense as most fans would be looping music videos or watching longer form content such as behind the scenes footage of photoshoots and song recordings. 
+
+3. Bar Plot: Total Video Views By Published Day
+```{r}
+#Change published days to factor data structure
+video_data$publishDayName <- factor(video_data$publishDayName) 
+str(video_data$publishDayName)
+
+# Calculate total videos per day
+total_videos_perday <- video_data %>%
+  group_by(publishDayName) %>%
+  summarize(totalVideos = n())
+
+#Create bar plot of total video views by published day
+day_order <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+publishedday_plot <- ggplot(data = video_data, aes(x = factor(publishDayName, levels = day_order), y = viewCount)) +
+  geom_bar(stat = "summary", fun = "sum", fill = "blue", alpha = 0.5) +
+  labs(x = "Published Day",
+       y = "Views",
+       caption = "Source: BANGTANTV YouTube Channel",
+       title = "Total Video Views By Published Day",
+       subtitle = "Optimal days for video uploads to maximize viewership are Thursday, Friday, and Sunday.") +
+  scale_y_continuous(labels = scales::comma_format(scale = 1e-6, suffix = "M")) +
+  coord_flip() +  # Flip orientation
+  # Add text labels for total videos
+  geom_text(data = total_videos_perday,
+            aes(x = factor(publishDayName, levels = day_order), y = totalVideos, label = sprintf("%d Videos", totalVideos)),
+            vjust = 0.3, size = 3, hjust = -0.3, color = "white") +
+  theme_classic()
+
+print(publishedday_plot)
+
+```
+This bar plot illustrates the distribution of total video views based on the day of the week when the videos were published. Each bar represents a specific day of the week, ranging from Monday to Sunday. The height of each bar indicates the cumulative number of views garnered by videos published on that particular day. The plot aims to identify trends in viewership patterns across different days, the team can use this to optimize their publishing schedules for maximum engagement.
+
+4. Publishing Patterns: Day & Hour Heatmap by Total Views
+
+This heatmap of publishing patterns was created to understand the optimal timing to post on each day:
+- Monday: 3PM
+- Tuesday: 12PM
+- Wednesday: 10AM
+- Thursday: 3PM (highest views)
+- Friday: 1PM (highest views)
+- Saturday: 10AM
+- Sunday: 10AM (highest views)
+```{r}
+# Install and load the lubridate package
+install.packages("lubridate")
+library(lubridate)
+
+# Assuming your data frame is called 'video_data'
+video_data$publishedAt <- as.POSIXct(video_data$publishedAt, tz = "UTC")
+video_data$publishHour <- hour(video_data$publishedAt)
+
+#Arrange day by ascending order
+day_order <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+# Now 'publishHour' column contains the extracted hour
+install.packages("dplyr")
+library(dplyr)
+
+heatmap_data <- video_data %>%
+  group_by(publishDayName, publishHour) %>%
+  summarize(views = sum(viewCount))
+
+heatmap <- ggplot(heatmap_data, aes(x = publishHour, y = factor(publishDayName, levels = day_order), fill = views)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "blue", labels = scales::comma) +
+  labs(x = "Hour of the Day",
+       y = "Published Day",
+       title = "Publishing Patterns: Day and Hour Heatmap by Views",
+       subtitle = "Thursday and Friday afternoons, along with Sunday mornings, attract the highest views from ARMYs.",
+       caption = "Source: BANGTANTV YouTube Channel") +
+  theme_minimal()
+
+print(heatmap)
+```
+
+5. Violin Plot: Video Duration by Member
+```{r}
+# Adjust the bandwidth parameter
+violin_duration_member <- ggplot(filtered_video_data, aes(x = member, y = durationSecs)) +
+  geom_violin(fill = "purple", alpha = 0.5, bw = 0.5) +  # Experiment with the bandwidth value
+  labs(x = "Member",
+       y = "Duration (seconds)",
+       title = "Video Duration Distribution by Member",
+       subtitle = "Majority of videos across all members fall under 300. SUGA stands out with a considerable number of videos below the 150 seconds mark.",
+       caption = "Source: BANGTANTV YouTube Channel") +
+  scale_y_continuous(breaks = seq(0, max(video_data$durationSecs), by = 300)) +  # Set breaks for y-axis
+  theme_minimal()
+
+print(violin_duration_member)
+```
+
+The plot shows a predominant trend where the majority of videos across all members fall within the 0-300 seconds duration range. Interestingly, a closer examination indicates that SUGA stands out with a considerable number of videos, particularly concentrated below the 150 seconds mark, distinguishing his content from other members. This observation suggests a potential stylistic or content preference specific to SUGA's video production strategy.
+
+***********************************
+## References 
+Youtube API for Python: How to Create a Unique Data Portfolio Project, The Vu data analytics. https://www.youtube.com/watch?v=D56_Cx36oGY
+
