@@ -50,7 +50,8 @@ After importing the data into R, a few additional data sanity check and cleaning
 ![image](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/603fe19d-f0b8-43b3-bf7f-82e96721cc7a)
 
 2. Video Categorization: To enhance analysis, a new column named 'member' was added to categorize each video based on its title. Initially, a lookup table dataframe was created to facilitate sustainable categorization of member names. Using pattern matching with the grepl function, member names were extracted from video titles. Videos with multiple member names were categorized as "Group", those with no member names as "Other", and if a single unique member name was identified, it was assigned to the 'member' column. <br>
-![image](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/fe6afd06-6ec1-4cdc-8a94-736f18468204)
+![Picture 1](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/25e8a8bd-5ad4-44f7-a7d3-13a586f7d742)
+
 
 3. Data Export: The cleaned dataset was exported to a CSV file to ensure data integrity and safekeeping for future analysis.
 <br>
