@@ -2,7 +2,7 @@
 # Overview & Background
 This project delves into the official YouTube channel of BTS called [BANGTANTV](https://www.youtube.com/@BTS), a globally acclaimed K-pop group sensation with a vast international fanbase. Despite primarily featuring songs in Korean and English, BTS has garnered immense popularity worldwide. Each member of the group brings a distinct talent and persona, contributing uniquely to the group's success. The project aims to explore and analyze the dynamics of the channel, providing insights into the performance of videos and revealing engagement patterns associated with each member.
 
-_As a fan of Jungkook, I found his latest album "Golden" particularly intriguing, as it showcased a departure from his usual persona, unveiling a more nuanced musical style. It is fascinating to explore whether other ARMYs (BTS’s Fanbase) share similar biases and how they reflect in viewership trends._
+_As a fan of Jungkook, I found his latest album "Golden" particularly intriguing, as it showcased a departure from his usual persona, unveiling a more nuanced musical style. This project excites me as I get to explore whether other ARMYs (BTS’s Fanbase) share similar bias and how they reflect in viewership/engagement trends._
 
 # Summary of Key Findings
 **1. Member Performance Analysis:** <br>
