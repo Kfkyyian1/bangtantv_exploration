@@ -26,14 +26,14 @@ The heatmap reveals peak viewing times, with Thursday and Friday afternoons, alo
 - SUGA stands out with a considerable number of shorter videos, suggesting a unique content strategy.
 
 # Data Extraction
-The data extraction was done by leveraging the YouTube API and BTS's channel ID ('UCLkAepWjdylmXSltofFvsYQ'). Download the code from _"bts_youtube_api_external.py"_ file.
+The data extraction was done by leveraging the YouTube API and BTS's channel ID ('UCLkAepWjdylmXSltofFvsYQ'). Code available in the _"bts_youtube_api_external.py"_ file.
 
 The first task was to retrieve essential statistics about the channel. Through a custom function, 'get_channel_stats', key metrics were extracted such as subscriber count, total views, and video count. BTS's channel has an extensive repository of 2424 videos **(as of 26 December 2023)**. However, the default behavior of the code only yielded 5 video IDs. To remedy this, a pagination loop was implemented with page tokens, ensuring the retrieval of all 2424 video IDs associated with BTS's channel.
 
-With the video IDs in hand, detailed information was collected about each video. Employing another custom function, 'get_video_details', metadata was retrieved encompassing titles, descriptions, view counts, likes, comments, and more for every video in the dataset. This process culminated in the creation of the final dictionary named 'video_df'. Spanning a breadth of insights, 'video_df' contains a comprehensive overview of BTS's YouTube channel, enabling nuanced analysis of viewer engagement, content performance, and publishing trends.
+With the video IDs in hand, detailed information was collected about each video. Employing another custom function, 'get_video_details', metadata was retrieved encompassing titles, descriptions, view counts, likes, comments, and more for every video in the dataset. All the data was compiled into a final dictionary named 'video_df', which contains a comprehensive overview of BTS's YouTube channel, enabling nuanced analysis of viewer engagement, content performance, and publishing trends.
 
 # Data Preparation
-With the raw dataset, a few data cleaning steps were conducted. Download the code from _"bts_youtube_api_external.py"_ file.
+With the raw dataset, a few data cleaning steps were conducted. Code available in the _"bts_youtube_api_external.py"_ file.
 
 **1.  Handling Null Values:** <br> The dataset underwent a null value check, revealing an empty 'favouriteCount' column. <br>
 
@@ -45,30 +45,27 @@ With the raw dataset, a few data cleaning steps were conducted. Download the cod
 Upon completion of these data preprocessing steps, the refined dataset was exported to a CSV format, ensuring compatibility with R for subsequent visualization and analysis tasks. 
 
 # Data Cleaning & Video Categorization in R
-After importing the data into R, a few additional data sanity check and cleaning steps were taken before visualising the data. Download the code from _"bts_youtube_external.Rmd"_ file.
+After importing the data into R, a few additional data sanity check and cleaning steps were taken before visualising the data. Code available in the _"bts_youtube_external.Rmd"_ file.
 1.	Column Removal: The 'favouriteCount' column, containing only NA values, and the 'definition' column were removed from the dataset as they were deemed non-essential for the analysis. <br>
 ![image](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/603fe19d-f0b8-43b3-bf7f-82e96721cc7a)
 
 2. Video Categorization: To enhance analysis, a new column named 'member' was added to categorize each video based on its title. Initially, a lookup table dataframe was created to facilitate sustainable categorization of member names. Using pattern matching with the grepl function, member names were extracted from video titles. Videos with multiple member names were categorized as "Group", those with no member names as "Other", and if a single unique member name was identified, it was assigned to the 'member' column. <br>
 ![Picture 1](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/25e8a8bd-5ad4-44f7-a7d3-13a586f7d742)
 
-
 3. Data Export: The cleaned dataset was exported to a CSV file to ensure data integrity and safekeeping for future analysis.
-<br>
-These steps ensured the dataset's readiness for visualization and analysis, streamlining the project's progression.
 
 # Exploratory Analysis
 ## Bar Plot: Total Video Views and Likes By BTS Member
 ![1-Total Video Views and Likes by BTS Member](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/475cdf58-c3bd-42e4-b7c4-2b028247eb67)
 ![1-Summary Data-Screenshot 2024-02-13 at 2 00 04 PM](https://github.com/Kfkyyian1/bangtantv_exploration/assets/146427900/36fdb83e-447e-4c23-b6d9-ae77c51c576f) <br>
 Based on the barplot and summary dataframe above (arranged by total views in descending order), we can observe that:
-1.	Jungkook (JK) emerges as the highest contributor, boasting the highest count of uploaded videos, along with commanding the top position in both total views and likes. This indicates not only a consistent output of content but also a significant and engaged audience.
-2.	V stands out prominently as the second-highest contributor in terms of total views, likes, and comments. Remarkably, V achieves this with a comparatively lower count of uploaded videos, underscoring the exceptional engagement and impact of each video.
-3.	Jimin secures the third position across all major metrics—total views, likes, and comments. This consistency suggests a substantial and engaged viewership, contributing to the overall success of the channel.
-4.	Jin, while maintaining a competitive position in terms of total views and likes, particularly excels in fostering audience interaction as evidenced by the highest count of comments among all members. This reflects a strong community engagement around Jin's content, emphasizing the qualitative aspect of audience participation.
-5.	SUGA has a substantial number of videos and total views, indicating a significant presence on the platform.
-6.	RM, despite having fewer videos compared to some other members, has a respectable total views count, showcasing a strong impact with each video.
-7.	J-Hope maintains a consistent performance across total views, likes, and comments, contributing significantly to the overall engagement.
+1.	**Jungkook (JK)** emerges as the highest contributor, boasting the highest count of uploaded videos, along with commanding the top position in both total views and likes. This indicates not only a consistent output of content but also a significant and engaged audience.
+2.	**V** stands out prominently as the second-highest contributor in terms of total views, likes, and comments. Remarkably, V achieves this with a comparatively lower count of uploaded videos, underscoring the exceptional engagement and impact of each video.
+3.	**Jimin** secures the third position across all major metrics—total views, likes, and comments. This consistency suggests a substantial and engaged viewership, contributing to the overall success of the channel.
+4.	**Jin**, while maintaining a competitive position in terms of total views and likes, particularly excels in fostering audience interaction as evidenced by the highest count of comments among all members. This reflects a strong community engagement around Jin's content, emphasizing the qualitative aspect of audience participation.
+5.	**SUGA** has a substantial number of videos and total views, indicating a significant presence on the platform.
+6.	**RM**, despite having fewer videos compared to some other members, has a respectable total views count, showcasing a strong impact with each video.
+7.	**J-Hope** maintains a consistent performance across total views, likes, and comments, contributing significantly to the overall engagement.
 
 These observations highlight the diverse contributions of each member, with some excelling in specific metrics, while others demonstrate a balance across multiple aspects of audience interaction.
 
@@ -110,7 +107,7 @@ Overall, these findings offer valuable insights into BTS's YouTube channel dynam
 
 _After conducting this analysis, it became evident that the affinity towards Jungkook's videos extends beyond personal bias; it appears to resonate strongly with many ARMYs, reflecting a shared preference for his content among fans. This data aligns with his unique position as the only member with an all-English full album, which likely contributes to his resonance with a global audience._
 
-# Reference
+# References
 - Thu Vu data analytics. (2022, January 22). YouTube API for Python: How to create a unique Data Portfolio Project [Video]. YouTube. https://www.youtube.com/watch?v=D56_Cx36oGY
 - BTS (방탄소년단) (2023, June 9). [Image] Facebook. https://www.facebook.com/photo/?fbid=858730148944371&set=a.282831103200948
 
