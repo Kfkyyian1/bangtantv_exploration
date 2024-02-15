@@ -26,14 +26,14 @@ The heatmap reveals peak viewing times, with Thursday and Friday afternoons, alo
 - SUGA stands out with a considerable number of shorter videos, suggesting a unique content strategy.
 
 # Data Extraction
-The data extraction was done by leveraging the YouTube API and BTS's channel ID ('UCLkAepWjdylmXSltofFvsYQ'). Code available in the _"bts_youtube_api_external.py"_ file.
+The data extraction was done using Python, by leveraging the YouTube API and BTS's channel ID ('UCLkAepWjdylmXSltofFvsYQ'). Code available in the _"bts_youtube_api_external.py"_ file.
 
 The first task was to retrieve essential statistics about the channel. Through a custom function, 'get_channel_stats', key metrics were extracted such as subscriber count, total views, and video count. BTS's channel has an extensive repository of 2424 videos **(as of 26 December 2023)**. However, the default behavior of the code only yielded 5 video IDs. To remedy this, a pagination loop was implemented with page tokens, ensuring the retrieval of all 2424 video IDs associated with BTS's channel.
 
 With the video IDs in hand, detailed information was collected about each video. Employing another custom function, 'get_video_details', metadata was retrieved encompassing titles, descriptions, view counts, likes, comments, and more for every video in the dataset. All the data was compiled into a final dictionary named 'video_df', which contains a comprehensive overview of BTS's YouTube channel, enabling nuanced analysis of viewer engagement, content performance, and publishing trends.
 
 # Data Preparation
-With the raw dataset, a few data cleaning steps were conducted. Code available in the _"bts_youtube_api_external.py"_ file.
+With the raw dataset, a few data cleaning steps were conducted with Python. Code available in the _"bts_youtube_api_external.py"_ file.
 
 **1.  Handling Null Values:** <br> The dataset underwent a null value check, revealing an empty 'favouriteCount' column. <br>
 
